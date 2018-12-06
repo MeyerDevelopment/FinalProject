@@ -1,31 +1,48 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
+/**
+ * @author David Meyer
+ * class that reads the data from a text file and puts it into a linked list
+ */
 public class reader {
-	public static void main(String[] args) throws FileNotFoundException
+	static int linesReadIn = 0;
+	static String url;
+	static LinkedList ll = new LinkedList();
+	public static String getUrl() {
+		return url;
+	}
+	/**
+	 * sets the value for Url, this is done in the frontend class
+	 * @param url
+	 */
+	public static void setUrl(String url) {
+		reader.url = url;
+	}
+	/**
+	 * this area reads in the text file and puts it into the linked list.
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws IOException
     {
-        int linesRead = 0; 
-		//Get scanner instance
-        Scanner scanner = new Scanner(new File("E:/Import/MapleCo01GL_2008.csv"));
-         
-        //Set the delimiter used in file
+		int linesRead = 0; 
+        URL stockURL = new URL(url);
+        Scanner scanner = new Scanner(new InputStreamReader(stockURL.openStream()));
         scanner.useDelimiter(",");
-        
-        LinkedList ll = new LinkedList();
-         
-        //Get all tokens and store them in some data structure
-        //I am just printing them
         while (scanner.hasNext())
         {
-            String line = scanner.nextLine();
+        	String line = scanner.nextLine();
             ll.add(line);
-        	//System.out.print(line + "|");
             linesRead ++;
         }
-        //ll.print();
-        System.out.print("lines read in = " + linesRead+ " lines in linked list = " + ll.getSize());
-        //Do not forget to close the scanner 
+        linesReadIn = linesRead;
+        JOptionPane.showMessageDialog(null, "Lines read from file = " + linesRead+ " \nLines inserted in linked list = " + ll.getSize());
         scanner.close();
-    }
+        Frontend.b1.setEnabled(false);
+        Frontend.b2.setEnabled(true);
+      }	
 }
