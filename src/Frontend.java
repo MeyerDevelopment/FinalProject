@@ -24,7 +24,8 @@ public class Frontend extends JFrame implements ItemListener{
      */
     public static void main(String[] args) 
     {  
-        f = new JFrame("Conversion Application");  
+        f = new JFrame("Conversion Application"); 
+        f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
         Frontend s = new Frontend(); 
         f.setLayout(new GridBagLayout());
         String s1[] = {"Football Co.", "Maple Co."}; 
